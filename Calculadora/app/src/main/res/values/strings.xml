@@ -24,4 +24,5 @@
     <string name="label_name">Nome</string>
     <string name="label_phone">Telefone</string>
     <string name="header_new_user">Novo Usuário</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 </resources>

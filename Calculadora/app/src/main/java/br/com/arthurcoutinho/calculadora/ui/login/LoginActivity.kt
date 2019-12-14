@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.arthurcoutinho.calculadora.R
 import br.com.arthurcoutinho.calculadora.ui.form.FormActivity
 import br.com.arthurcoutinho.calculadora.ui.signup.SignUpActivity
+import br.com.arthurcoutinho.calculadora.utils.DatabaseUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -54,10 +56,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToHome() {
+
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(this) { instanceIdResult ->
+            val newToken = instanceIdResult.token
+            DatabaseUtil.saveToken(newToken)
+        }
         val intent = Intent(this, FormActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         finish()
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
